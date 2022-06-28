@@ -1,0 +1,26 @@
+.node {
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+}
+
+.node-animated {
+  background-color: cadetblue;
+}
+
+.node-end {
+  background-color: red;
+}
+
+.node-start {
+  background-color: green;
+}
+
+.node-wall {
+  background-color: gray;
+}
+
+.node-shortest-path {
+  background-color: yellow;
+}
