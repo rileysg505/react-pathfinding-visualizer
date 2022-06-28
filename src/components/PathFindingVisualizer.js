@@ -12,6 +12,7 @@ const START_NODE_ROW = 5;
 const START_NODE_COL = 15;
 const END_NODE_ROW = 5;
 const END_NODE_COL = 25;
+let SOLVED= false;
 
 const createNode = (col, row) => {
   return {
@@ -43,12 +44,12 @@ const getInitialGrid = () => {
 const initGrid = getInitialGrid();
 let currGrid = initGrid;
 const PathFindingVisualizer = () => {
-  console.log("INITIALIZE", currGrid);
   const [grid, setGrid] = useState(currGrid);
   const startNode = currGrid[START_NODE_ROW][START_NODE_COL];
   const endNode = currGrid[END_NODE_ROW][END_NODE_COL];
 
   const visualizeAlg = () => {
+    if(!SOLVED){
     const orderedNodes = dijkstra(currGrid, startNode, endNode);
     const shortestPath = getNodesInShortestPathOrder(endNode);
 
@@ -56,17 +57,16 @@ const PathFindingVisualizer = () => {
       for (let j = 0; j < shortestPath.length; j++) {
         setTimeout(() => {
           const node = shortestPath[j];
-          const newGrid = currGrid.slice();
+          const newGrid = grid.slice();
           const newNode = {
             ...node,
             isCorrect: true,
           };
           newGrid[node.row][node.col] = newNode;
           setGrid(newGrid);
-          console.log(newGrid);
         }, 30 * j);
       }
-    };
+    console.log(SOLVED)};
 
     for (let i = 0; i < orderedNodes.length; i++) {
       if (i === orderedNodes.length - 1) {
@@ -75,7 +75,7 @@ const PathFindingVisualizer = () => {
         }, 20 * i);
       }
       setTimeout(() => {
-        const newGrid = currGrid.slice();
+        const newGrid = grid.slice();
         const node = orderedNodes[i];
         const newNode = {
           ...node,
@@ -85,20 +85,24 @@ const PathFindingVisualizer = () => {
         setGrid(newGrid);
       }, 20 * i);
     }
-  };
+    SOLVED = true;
+  }};
 
   const handleMouseDown = (row, col) => {
+    if(!SOLVED){
+
+    
     const newGrid = currGrid.slice();
     const node = newGrid[row][col];
     const newNode = { ...node, isWall: !node.isWall };
     newGrid[row][col] = newNode;
-    setGrid(newGrid);
-    console.log(currGrid);
+    setGrid(newGrid);}
   };
   const resetBoard = () => {
+    SOLVED = false;
     currGrid = getInitialGrid();
+
     setGrid(getInitialGrid());
-    console.log("RESET", currGrid);
   };
 
   return (
@@ -129,7 +133,7 @@ const PathFindingVisualizer = () => {
                     isWall={isWall}
                     isAnimated={isAnimated}
                     isCorrect={isCorrect}
-                    onMouseDown={() => handleMouseDown(row, col)}
+                    onMouseDown={() =>  handleMouseDown(row, col)}
                   ></Node>
                 );
               })}
