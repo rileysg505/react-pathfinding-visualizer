@@ -1,6 +1,6 @@
-import { FaBars } from 'react-icons/fa';
-import { NavLink as Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { FaBars } from "react-icons/fa";
+import { NavLink as Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const Nav = styled.nav`
   background: #000;
@@ -13,8 +13,6 @@ export const Nav = styled.nav`
   /* Third Nav */
   /* justify-content: flex-start; */
 `;
-
-
 
 export const Bars = styled(FaBars)`
   display: none;
@@ -60,8 +58,9 @@ export const Button = styled.a`
   border: 2px solid white;
 
   &:hover {
+    cursor: pointer;
     transition: all 0.2s ease-in-out;
     background: #fff;
     color: #010606;
   }
-`
+`;
