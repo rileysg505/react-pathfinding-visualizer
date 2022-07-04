@@ -12,7 +12,7 @@ const clickHandler = () => {
   console.log("clicked new button!");
 };
 
-const Header = ({ solve, reset }) => {
+const Header = ({ start,solve, reset }) => {
   const resetHandler = () => {
     reset();
   };
@@ -23,7 +23,7 @@ const Header = ({ solve, reset }) => {
   return (
     <>
       <Nav>
-        <Button onClick={clickHandler}>Set Start</Button>
+        <Button onClick={start}>Set Start</Button>
         <Button onClick={clickHandler}>Set End</Button>
         <Button onClick={solveHandler}>Solve</Button>
         <Button onClick={resetHandler}>Reset</Button>
