@@ -64,22 +64,22 @@ const findStartAndEnd = (grid) => {
   return { startNode, endNode };
 };
 
-const handleCanSetStart =(chooseStart,setChooseStart)=>{
-  console.log('tested')
+const handleCanSetStart = (chooseStart, setChooseStart) => {
+  console.log("tested");
   setChooseStart(!chooseStart);
-}
-const handleSetStart =(row,col,setChooseStart,setGrid,setStartNode)=>{
-  console.log(row,col)
+};
+const handleSetStart = (row, col, setChooseStart, setGrid, setStartNode) => {
+  console.log(row, col);
   const newGrid = currGrid.slice();
-  const startNode = findStartAndEnd(newGrid).startNode
+  const startNode = findStartAndEnd(newGrid).startNode;
   newGrid[startNode.row][startNode.col].isStart = false;
   const node = newGrid[row][col];
   const newNode = { ...node, isStart: true };
   newGrid[row][col] = newNode;
-  setStartNode(newNode)
+  setStartNode(newNode);
   setGrid(newGrid);
   setChooseStart(false);
-}
+};
 
 const handleMouseDown = (row, col, setGrid) => {
   if (!SOLVED) {
@@ -91,7 +91,6 @@ const handleMouseDown = (row, col, setGrid) => {
   }
 };
 
-
 const resetBoard = (setGrid) => {
   SOLVED = false;
   currGrid = getInitialGrid();
@@ -102,11 +101,11 @@ const resetBoard = (setGrid) => {
 const initGrid = getInitialGrid();
 let currGrid = initGrid;
 const PathFindingVisualizer = () => {
-
-
   const [chooseStart, setChooseStart] = useState(false);
   const [grid, setGrid] = useState(currGrid);
-  const [startNode,setStartNode] = useState(currGrid[START_NODE_ROW][START_NODE_COL]);
+  const [startNode, setStartNode] = useState(
+    currGrid[START_NODE_ROW][START_NODE_COL]
+  );
   const endNode = currGrid[END_NODE_ROW][END_NODE_COL];
 
   const visualizeAlg = () => {
@@ -154,20 +153,15 @@ const PathFindingVisualizer = () => {
   return (
     <>
       <Header
-        start ={()=>{handleCanSetStart(chooseStart,setChooseStart)}}
+        start={() => {
+          handleCanSetStart(chooseStart, setChooseStart);
+        }}
         solve={visualizeAlg}
         reset={() => {
           resetBoard(setGrid);
         }}
       />
 
-      <button
-        onClick={() => {
-          findStartAndEnd(currGrid);
-        }}
-      >
-        Click Test
-      </button>
       <div className="grid">
         {grid.map((row, rowIdx) => {
           return (
@@ -192,7 +186,17 @@ const PathFindingVisualizer = () => {
                     isWall={isWall}
                     isAnimated={isAnimated}
                     isCorrect={isCorrect}
-                    onMouseDown={() => (chooseStart)? handleSetStart(row,col,setChooseStart,setGrid,setStartNode) :handleMouseDown(row, col, setGrid)}
+                    onMouseDown={() =>
+                      chooseStart
+                        ? handleSetStart(
+                            row,
+                            col,
+                            setChooseStart,
+                            setGrid,
+                            setStartNode
+                          )
+                        : handleMouseDown(row, col, setGrid)
+                    }
                   ></Node>
                 );
               })}
